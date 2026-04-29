@@ -1,0 +1,166 @@
+class Personagem:
+    EMOJIS = {
+        "Barbaro": "⚔️",
+        "Mago": "🧙",
+        "Assassino": "🗡️️️",
+        "Paladino": "🛡️"
+    }
+
+    #inicializador
+    def __init__(self, nome, sexo):
+        self.nome = nome
+        self.sexo = sexo
+
+    def __str__(self):
+        atributos = vars(self)
+        
+        classe = self.__class__.__name__
+        emoji = self.EMOJIS.get(classe, "👤")
+
+        texto = f"{emoji} ----- STATUS ----- {emoji}\n"
+        texto += f"Classe: {classe}\n"
+
+        for chave, valor in atributos.items():
+            texto += f"{chave}: {valor}\n"
+
+        return texto
+
+
+class Barbaro(Personagem):
+    def __init__(self, nome, sexo):
+        super().__init__(nome, sexo)
+        self.vida = 200
+        self.defesa = 20
+        self.stamina = 200
+        self.forca = 0.50
+        self.velocidade = 20.0
+        self.agilidade = 35
+        
+    def arremessar_machado(self, alvo):
+        custo = 60
+        if self.stamina >= custo:
+            self.stamina -= custo
+            dano = self.forca * 30
+            print(f"{self.nome} usou arremessar machado!")
+        else:
+            print(f"{feld.nome} não possui stamina suficiente!")
+        
+    def machado_rapido(self, alvo):
+        custo = 10
+        if self.stamina >= custo:
+            self.stamina -= custo
+            dano = self.forca * 15
+            print(f"{self.nome} usou ataque base!")
+        else:
+            print(f"{self.nome} não possui stamina suficiente!")
+
+        
+class Mago(Personagem):
+    def __init__(self,nome, sexo):
+        super().__init__(nome, sexo)
+        self.vida = 100 
+        self.defesa = 5
+        self.mana = 150
+        self.inteligencia = 0.40
+        self.velocidade = 10.0
+        self.agilidade = 10
+        
+    def explosão_carmesim(self, alvo):
+        custo = 80
+        if self.mana >= custo:
+            self.mana -= custo
+            dano = self.inteligencia * 100
+            print(f"{self.nome} usou Explosão Carmesim!")
+            alvo.receber_dano(dano)
+        else:
+            print(f"{self.nome} não possui mana suficiente!")
+        
+    def bola_de_fogo(self, alvo):
+        custo = 5
+        if self.mana >= custo:
+            self.mana -= custo
+            dano = self.inteligencia * 20
+            print(f"{self.nome} usou ataque base!")
+            alvo.receber_dano(dano)
+        else:
+            print(f"{self.nome} não possui mana suficiente!")
+            
+
+class Assassino(Personagem):
+    def __init__(self, nome, sexo):
+        super().__init__(nome, sexo)
+        self.vida = 100
+        self.defesa = 15
+        self.stamina = 200
+        self.forca = 0.30
+        self.velocidade = 30.0
+        self.agilidade = 50
+    
+    def Apunhalada(self, alvo):
+        custo = 60
+        if self.stamina >= custo:
+            self.stamina -= custo
+            dano = self.forca * 25
+            print(f"{self.nome} usou Apunhalada!")
+        else:
+            print(f"{self.nome} não tem stamina suficiente!")
+            
+    def Ataque_rapido(self, alvo):
+        custo = 10
+        if self.stamina >= custo:
+            self.stamina -= custo
+            dano = self.forca * 10
+            print(f"{self.nome} usou ataque rapido!")
+        else:
+            print(f"{self.nome} não tem stamina suficiente!")
+            
+            
+            
+class Paladino(Personagem):
+    def __init__(self, nome, sexo):
+        super().__init__(nome, sexo)
+        self.vida = 300
+        self.defesa = 60
+        self.stamina = 150
+        self.forca = 0.15
+        self.velocidade = 10.0
+        self.agilidade = 5
+        
+    def Escudo_celestial(self):
+        aumento = 20
+        defesa_total = self.defesa + aumento
+        custo = 20
+        if self.stamina >= custo:
+            self.stamina -= custo
+            diminuição_de_dano = min(dano, defesa_total)
+            dano_final = dano - diminuição_de_dano
+            print(f"{self.nome} ativou Escudo Celestial! Defesa aumentada para {self.defesa}")
+        else:
+            print(f"{self.nome} não tem stamina suficiente!")
+            
+    def Espada_veloz(self, alvo):
+        custo = 5
+        if self.stamina >= custo:
+            self.stamina -= custo
+            dano = self.forca * 5
+            print(f"{self.nome} usou Espada Veloz!")
+        else:
+            print(f"{self.nome} não tem stamina suficiente!")
+            
+
+personagem1 = Barbaro("Sebastian", "Masculino") 
+print(personagem1)
+print()
+
+personagem2 = Mago("Guilherme", "Masculino")
+print(personagem2)
+print()
+
+personagem3 = Assassino("Matheus", "Masculino")
+print(personagem3)
+print()
+
+personagem4 = Paladino("Mariana", "Feminino")
+print(personagem4)
+
+       
