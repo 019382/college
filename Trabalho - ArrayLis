@@ -1,0 +1,151 @@
+    class ArrayList:
+        def __init__(self):
+            self.MEMORY_SPACE = 10
+            self.lastPosition = 0
+            self.array = [None] * self.MEMORY_SPACE
+            
+        def get(self, position: int):
+            if (position < 0 or position > (self.size() - 1)):
+                raise IndexError("Index out of bounds exception")
+            return self.array[position]
+        
+        def updateRemoveArray(self, start: int, end: int):
+            for index in range(start, end):
+                self.array[index] = self.array[index + 1]
+            self.lastPosition -= 1
+            
+        def updateInsertArray(self, start: int, end: int):
+            for index in range(start, end, -1):
+                self.array[index] = self.array[index - 1]
+            self.lastPosition += 1
+            
+        def removeAll(self):
+            self.lastPosition = 0
+            
+        def add(self, value):
+            if (self.lastPosition == self.capacity()):
+                self.resizeMemory()
+            self.array[self.lastPosition] = value
+            self.lastPosition += 1
+            
+        def insertAt(self, value, position: int):
+            if (position < 0 or position > self.lastPosition):
+                raise IndexError("Index out of bounds exception")
+            if (self.lastPosition == self.capacity()):
+                self.resizeMemory()
+            self.updateInsertArray(self.lastPosition, position)
+            self.array[position] = value
+            
+        def removeAt(self, position: int):
+            if (position < 0 or position > (self.size() - 1)):
+                raise IndexError("Index out of bounds exception")
+            copy = self.array[position]
+            self.updateRemoveArray(position, self.size() - 1)
+            return copy
+        
+        def remove(self):
+            last = self.array[self.lastPosition - 1]
+            self.lastPosition -= 1
+            return last
+        
+        def capacity(self):
+            return len(self.array)
+        
+        def size(self):
+            return self.lastPosition
+        
+        def print(self):
+            for position in range(0, self.lastPosition):
+                print(self.array[position])
+    
+        def resizeMemory(self):
+            print("Expandindo memória...")
+            newArray = [None] * (self.capacity() * 2)
+            for position in range(self.capacity()):
+                newArray[position] = self.array[position]
+            self.array = newArray
+    
+    
+
+    class Contato:
+        def __init__(self, nome: str, telefone: str):
+            self.nome = nome
+            self.telefone = telefone
+    
+        def __repr__(self):
+            return f"{self.nome:<20} | {self.telefone}"
+    
+    
+
+    class ListaTelefonica:
+        def __init__(self):
+            self.lista = ArrayList()
+    
+        def adicionar(self, nome: str, telefone: str):
+            """Adiciona um contato no final da lista."""
+            contato = Contato(nome, telefone)
+            self.lista.add(contato)
+            print(f"Contato '{nome}' adicionado.")
+    
+        def buscar_por_nome(self, nome: str):
+            """Busca contatos cujo nome contenha o termo buscado (busca parcial)."""
+            resultados = []
+            for i in range(self.lista.size()):
+                contato = self.lista.get(i)
+                if nome.lower() in contato.nome.lower():
+                    resultados.append((i, contato))
+    
+            if resultados:
+                print(f"{len(resultados)} resultado(s) para '{nome}':")
+                for posicao, contato in resultados:
+                    print(f"  Posição {posicao}: {contato}")
+            else:
+                print(f"Contato '{nome}' não encontrado.")
+    
+            return resultados
+    
+        def remover_por_nome(self, nome: str):
+            """Remove o primeiro contato cujo nome contenha o termo buscado."""
+            resultados = self.buscar_por_nome(nome)
+            if resultados:
+                posicao, contato = resultados[0]
+                self.lista.removeAt(posicao)
+                print(f"Contato '{contato.nome}' removido.")
+    
+        def listar(self):
+            """Exibe todos os contatos."""
+            if self.lista.size() == 0:
+                print("A lista está vazia.")
+                return
+            print(f"\n{'Nome':<20} | {'Telefone'}")
+            print("-" * 35)
+            for i in range(self.lista.size()):
+                print(self.lista.get(i))
+            print()
+    
+    
+    if __name__ == "__main__":
+        agenda = ListaTelefonica()
+    
+        print("=== Adicionando contatos ===")
+        agenda.adicionar("Matheus Diehl Inomata",   "(63) 99206-0041")
+        agenda.adicionar("Flávio Chaves",    "(91) 8492-6934")
+        agenda.adicionar("Pedro Lima Fonseca",    "(63) 51235-8745")
+        agenda.adicionar("Lucia Alves de Araujo",   "(63) 98454-3256")
+        agenda.adicionar("Tiago Mendes Carvalho",  "(63) 99651-3547")
+        agenda.adicionar("Carlos Andrade",    "(63) 99823-3322")
+
+        print("\n=== Lista completa ===")
+        agenda.listar()
+    
+        print("=== Buscando 'Pedro Lima' ===")
+        agenda.buscar_por_nome("Pedro Lima")
+    
+        print("\n=== Removendo 'João Souza' ===")
+        agenda.remover_por_nome("João Souza")
+    
+        print("\n=== Lista após remoção ===")
+        agenda.listar()
+    
+        print("=== Buscando contato inexistente ===")
+        agenda.buscar_por_nome("Carlos")
