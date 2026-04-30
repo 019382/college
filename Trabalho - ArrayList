@@ -127,11 +127,12 @@ if __name__ == "__main__":
     agenda = ListaTelefonica()
 
     print("=== Adicionando contatos ===")
-    agenda.adicionar("Maria Silva",   "(63) 99999-1111")
-    agenda.adicionar("João Souza",    "(63) 98888-2222")
-    agenda.adicionar("Pedro Lima",    "(63) 97777-3333")
-    agenda.adicionar("Lucia Alves",   "(63) 96666-4444")
-    agenda.adicionar("Tiago Mendes",  "(63) 95555-5555")
+    agenda.adicionar("Matheus Diehl Inomata",   "(63) 9955-0871")
+    agenda.adicionar("Flávio Chaves",    "(91) 8765-6908")
+    agenda.adicionar("Pedro Lima Fonseca",    "(63) 51235-8745")
+    agenda.adicionar("Lucia Alves de Araujo",   "(63) 98454-3256")
+    agenda.adicionar("Tiago Mendes Carvalho",  "(63) 99651-3547")
+    agenda.adicionar("Carlos Andrade",    "(63) 99823-3322")
 
     print("\n=== Lista completa ===")
     agenda.listar()
