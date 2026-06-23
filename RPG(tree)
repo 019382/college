@@ -45,7 +45,7 @@ def rolar_dado():
     elif valor in (2, 3):
         return 1.0, "🗯️ Dano normal", valor
     elif valor in (4, 5):
-        return 1.5, "🔥Dano bom", valor
+        return 1.5, "🔥 Dano bom", valor
     else:  
         return 2.0, "💥 DANO CRÍTICO!", valor
 
@@ -97,7 +97,7 @@ class Mago(Personagem):
         self.agilidade = 10
         self.lista_ataques = [self.explosao_carmesim, self.bola_de_fogo]
 
-    def explosao_carmesim(self, alvo, multiplicador=1.0):
+    def explosao_carmesim(self, alvo, multiplicador=2.0):
         custo = 80
         if self.mana >= custo:
             self.mana -= custo
@@ -128,16 +128,16 @@ class Assassino(Personagem):
         self.vida = 100
         self.defesa = 15
         self.stamina = 200
-        self.forca = 0.30
+        self.forca = 0.60
         self.velocidade = 30.0
         self.agilidade = 50
         self.lista_ataques = [self.apunhalada, self.ataque_rapido]
 
-    def apunhalada(self, alvo, multiplicador=1.0):
+    def apunhalada(self, alvo, multiplicador=2.0):
         custo = 60
         if self.stamina >= custo:
             self.stamina -= custo
-            dano = self.forca * 65 * multiplicador
+            dano = self.forca * 80 * multiplicador
             print(f"{self.nome} usou Apunhalada!")
             alvo.receber_dano(dano)
             return dano
@@ -149,7 +149,7 @@ class Assassino(Personagem):
         custo = 10
         if self.stamina >= custo:
             self.stamina -= custo
-            dano = self.forca * 35 * multiplicador
+            dano = self.forca * 50 * multiplicador
             print(f"{self.nome} usou Ataque Rápido!")
             alvo.receber_dano(dano)
             return dano
@@ -209,24 +209,6 @@ class No:
 
 
 def construir_arvore(participantes):
-    """
-    participantes: lista com 4 personagens.
-
-    Estrutura final (igual ao seu diagrama):
-
-                              RAIZ (Campeão)
-                                     |
-                    Final: vencedor(1ªBatalha_A) Vs vencedor(1ªBatalha_B)
-                    /                                                  \\
-            1ªBatalha_A                                          1ªBatalha_B
-            (Pers.0 Vs Pers.1)                                (Pers.2 Vs Pers.3)
-
-    - As folhas (1ªBatalha_A e 1ªBatalha_B) são as duas primeiras batalhas,
-      cada uma já guarda os 2 personagens que vão se enfrentar.
-    - O nó da raiz é resolvido por último: pega o vencedor de cada uma das
-      1ª batalhas e os coloca pra brigar na final. Quem ganhar essa
-      batalha final se torna o personagem guardado na raiz = Campeão.
-    """
     if len(participantes) != 4:
         raise ValueError("O torneio precisa de exatamente 4 personagens.")
 
@@ -282,8 +264,6 @@ def batalha(p1, p2):
 
 
 def disputar_torneio(no):
-    """Percorre a árvore recursivamente (estilo pós-ordem):
-    resolve as folhas primeiro, depois sobe definindo os vencedores."""
     if no.eh_folha():
         return no.personagem
 
@@ -338,7 +318,7 @@ def criar_personagem(numero):
 
 def criar_personagens_automaticos():
     
-    nomes = ["Thrak", "Eldrin", "Vex", "Sir Aldric"]
+    nomes = ["Olaf", "Veigar", "Shaco", "Leona"]
     classes = [Barbaro, Mago, Assassino, Paladino]
     sexos = ["Masculino", "Feminino", "Masculino", "Feminino"]
 
@@ -347,10 +327,8 @@ def criar_personagens_automaticos():
 
 def main():
     print("=" * 50)
-    print("🏟️  TORNEIO RPG - CHAVE DE 4 PARTICIPANTES  🏟️")
-    print("=" * 50)
 
-    modo = input("Criar personagens manualmente (1) ou automático/teste (2)? ")
+    modo = input("Criar personagens manualmente (1) ou automático (2)? ")
 
     if modo == "1":
         participantes = [criar_personagem(i + 1) for i in range(4)]
@@ -371,3 +349,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
