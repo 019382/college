@@ -318,7 +318,7 @@ def criar_personagem(numero):
 
 def criar_personagens_automaticos():
     
-    nomes = ["Olaf", "Veigar", "Shaco", "Leona"]
+    nomes = ["Klaus", "Morgana", "Swain", "Tharion"]
     classes = [Barbaro, Mago, Assassino, Paladino]
     sexos = ["Masculino", "Feminino", "Masculino", "Feminino"]
 
